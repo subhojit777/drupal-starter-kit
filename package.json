@@ -1,0 +1,31 @@
+{
+  "name": "drupal-starter-kit",
+  "version": "7.0.0",
+  "description": "Drupal Starter Kit: Drupal starter kit + CI sauce",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "event-stream": "^3.1.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshishThakur/drupal-starter-kit.git"
+  },
+  "keywords": [
+    "drupal",
+    "gulp",
+    "ci"
+  ],
+  "author": "Ashish Thakur (dash2ashish@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AshishThakur/drupal-starter-kit/issues"
+  },
+  "homepage": "https://github.com/AshishThakur/drupal-starter-kit#readme"
+}
