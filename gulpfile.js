@@ -8,5 +8,6 @@ gulp.task('default', function() {
 
   return es.merge(modules, themes)
     .pipe(eslint())
-    .pipe(eslint.format());
+    .pipe(eslint.format())
+    .on('error', function(err) { throw err; });;
 });
