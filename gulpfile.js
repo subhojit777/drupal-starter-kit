@@ -24,5 +24,6 @@ gulp.task('csslint', function() {
 });
 
 gulp.task('default', [
-  'jslint'
+  'jslint',
+  'csslint'
 ]);
