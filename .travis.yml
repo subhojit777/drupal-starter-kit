@@ -27,4 +27,5 @@ script:
   # Default gulp is configured to run csslint and eslint.
   - gulp
   # Check for coding standards violations
-  - cd docroot/sites/all/modules/custom && ~/.composer/vendor/bin/phpcs
+  - ls
+  # - cd docroot/sites/all/modules/custom && ~/.composer/vendor/bin/phpcs
