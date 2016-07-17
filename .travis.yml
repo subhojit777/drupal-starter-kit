@@ -21,9 +21,9 @@ before_script:
   - composer global require drupal/coder
   - export PATH="$PATH:$HOME/.composer/vendor/bin"
   - source ~/.bashrc
-  - phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
+  - ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
 script:
   # Default gulp is configured to run csslint and eslint.
   - gulp
   # Check for coding standards violations
-  - phpcs docroot/sites/all/modules/custom
+  - cd docroot/sites/all/modules/custom && ~/.composer/vendor/bin/phpcs
