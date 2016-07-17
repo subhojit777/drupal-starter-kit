@@ -2,6 +2,10 @@ var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var es = require('event-stream');
 var csslint = require('gulp-csslint');
+var phplint = require('phplint').lint;
+var tap = require('gulp-tap');
+var execSync = require('sync-exec');
+var options = require('minimist')(process.argv.slice(2));
 
 gulp.task('jslint', function() {
   var modules = gulp.src('docroot/sites/all/modules/custom/**/*.js');
@@ -23,7 +27,59 @@ gulp.task('csslint', function() {
     .pipe(csslint.reporter('fail'));
 });
 
+
+gulp.task('php', function () {
+  // Source file defaults to a pattern.
+  var extensions = '{php,module,inc,install,test,profile,theme}',
+    sourcePatterns = [
+      'docroot/sites/all/modules/custom/**/*.' + extensions,
+      'docroot/sites/all/modules/features/**/*.' + extensions,
+      'docroot/sites/all/themes/custom/**/*.' + extensions
+    ],
+    excludePatterns = [
+      '!**/*.apachesolr_environments.inc',
+      '!**/*.apachesolr_search_defaults.inc',
+      '!**/*.context.inc',
+      '!**/*.features.*.inc',
+      '!**/*.features.inc',
+      '!**/*.field_group.inc',
+      '!**/*.pages_default.inc',
+      '!**/*.strongarm.inc',
+      '!**/*.views_default.inc'
+    ];
+
+  // If path is provided, override.
+  if (options.hasOwnProperty('path') && options.path.length > 0) {
+    sourcePatterns = [
+      options.path + '/*.' + extensions,
+      options.path + '/**/*.' + extensions
+    ];
+  }
+
+  // Merge sourcePatters with excludePatterns.
+  sourcePatterns = sourcePatterns.concat(excludePatterns);
+
+  // Run phpcs.
+  gulp.src(sourcePatterns)
+   .pipe(tap(function (file) {
+    var report = execSync('./vendor/bin/phpcs --standard="./.phpcsrc.xml" ' + file.path);
+    if (report.stdout.length > 0) {
+      // Log report, and remove silly Code Sniffer 2.0 ad.
+      console.log(report.stdout.split('UPGRADE TO PHP_CODESNIFFER 2.0 TO FIX ERRORS AUTOMATICALLY')[0]);
+    }
+  }));
+
+  // Llint php source files.
+  phplint(sourcePatterns, {limit: 50}, function (err, stdout, stderr) {
+    if (err) {
+       console.log(err);
+     }
+  });
+});
+
 gulp.task('default', [
   'jslint',
-  'csslint'
+  'csslint',
+  'php'
 ]);
+
