@@ -12,4 +12,12 @@ before_install:
 install:
   - npm install gulp -g
   - npm install
-script: gulp
+before_script:
+  # Install PHPCS to check for Drupal coding standards.
+  - travis_retry composer global require drupal/coder
+  - ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
+script:
+  # Default gulp is configured to run csslint and eslint.
+  - gulp
+  # Check for coding standards violations
+  - cd docroot/sites/all/modules/custom && ~/.composer/vendor/bin/phpcs
