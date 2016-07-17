@@ -68,7 +68,7 @@ gulp.task('php', function () {
         console.log(report.stdout.split('UPGRADE TO PHP_CODESNIFFER 2.0 TO FIX ERRORS AUTOMATICALLY')[0]);
       }
     }))
-    .pipe(phplint.reporter('fail'));
+    .pipe(php.reporter('fail'));
 });
 
 gulp.task('default', [
