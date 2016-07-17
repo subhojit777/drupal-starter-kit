@@ -67,8 +67,8 @@ gulp.task('php', function () {
         // Log report, and remove silly Code Sniffer 2.0 ad.
         console.log(report.stdout.split('UPGRADE TO PHP_CODESNIFFER 2.0 TO FIX ERRORS AUTOMATICALLY')[0]);
       }
-    }))
-    .pipe(php.reporter('fail'));
+  }));
+
 });
 
 gulp.task('default', [
@@ -76,4 +76,3 @@ gulp.task('default', [
   'csslint',
   'php'
 ]);
-
