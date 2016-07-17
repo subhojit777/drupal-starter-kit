@@ -1,10 +1,17 @@
 language: node_js
 sudo: true
+
 node_js:
   - stable
+
 cache:
   directories:
     - $HOME/.composer
+
+matrix:
+  # Don't wait for the allowed failures to build.
+  fast_finish: true
+
 before_install:
   - sudo add-apt-repository ppa:ondrej/php5-5.6 -y
   - sudo apt-get update
@@ -16,16 +23,18 @@ before_install:
   - php -r "unlink('composer-setup.php');"
   - sudo mv composer.phar /usr/local/bin/composer
   - composer
+
 install:
   - npm install gulp -g
   - npm install
+
 before_script:
   # Install PHPCS to check for Drupal coding standards.
-  - composer global require drupal/coder
+  - travis_retry composer global require drupal/coder
   - ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
+
 script:
   # Default gulp is configured to run csslint and eslint.
   - gulp
   # Check for coding standards violations
-  - ls
-  # - cd docroot/sites/all/modules/custom && ~/.composer/vendor/bin/phpcs
+  - cd docroot/sites/all/modules/custom && ~/.composer/vendor/bin/phpcs
