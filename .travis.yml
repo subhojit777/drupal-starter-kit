@@ -16,8 +16,10 @@ before_script:
   # Install PHPCS to check for Drupal coding standards.
   - travis_retry sudo composer global require drupal/coder
   - ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
+  - export PATH="$PATH:$HOME/.composer/vendor/bin"
+  - phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
 script:
   # Default gulp is configured to run csslint and eslint.
   - gulp
   # Check for coding standards violations
-  - cd docroot/sites/all/modules/custom && ~/.composer/vendor/bin/phpcs
+  - phpcs docroot/sites/all/modules/custom
