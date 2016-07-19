@@ -79,8 +79,6 @@ gulp.task('php', function () {
 
 });
 
-
-
 gulp.task('default', [
   'jslint',
   'csslint',
