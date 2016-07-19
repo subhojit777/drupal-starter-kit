@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var es = require('event-stream');
 var csslint = require('gulp-csslint');
+var sass = require('gulp-sass');
+var sasslint = require('gulp-sass-lint');
 var phplint = require('phplint').lint;
 var tap = require('gulp-tap');
 var execSync = require('sync-exec');
@@ -27,6 +29,12 @@ gulp.task('csslint', function() {
     .pipe(csslint.reporter('fail'));
 });
 
+gulp.task('scsslint', function () {
+  return gulp.src('docroot/sites/all/themes/sass/**/*.s+(a|c)ss')
+   .pipe(sasslint())
+   .pipe(sasslint.format())
+   .pipe(sasslint.failOnError());
+ });
 
 gulp.task('php', function () {
   // Source file defaults to a pattern.
@@ -71,8 +79,11 @@ gulp.task('php', function () {
 
 });
 
+
+
 gulp.task('default', [
   'jslint',
   'csslint',
+  'scsslint',
   'php'
 ]);
