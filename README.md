@@ -14,3 +14,5 @@ Once all the dependencies are installed, follow the steps below
 * composer install
 
 ## How to use
+Once you have all the node modules and php packages install, create your Drupal Theme or module
+and run ```gulp``` to check if your module/theme follows drupal coding standards or not.
