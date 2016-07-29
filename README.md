@@ -14,9 +14,9 @@ OS.
 ## Steps to install
 Once all the dependencies are installed, follow the steps below
 
-* npm install
-* composer install
 * Clone the repo
+* Execute ```npm install```
+* Execute ```composer install```
 * Move your Drupal codebase to docroot directory
 
 ## How to use
