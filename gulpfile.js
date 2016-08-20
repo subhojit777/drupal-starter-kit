@@ -7,11 +7,14 @@ var sasslint = require('gulp-sass-lint');
 var options = require('minimist')(process.argv.slice(2));
 var phpcs = require('gulp-phpcs');
 var guppy = require('git-guppy')(gulp);
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync('./config.json'));
+var drupal_root = config.drupal_root;
 
 // Execute js lint.
 gulp.task('jslint', function() {
-  var modules = gulp.src('docroot/sites/all/modules/custom/**/*.js');
-  var themes = gulp.src('docroot/sites/all/themes/**/*.js');
+  var modules = gulp.src(drupal_root + '/sites/all/modules/custom/**/*.js');
+  var themes = gulp.src(drupal_root + '/sites/all/themes/**/*.js');
 
   return es.merge(modules, themes)
     .pipe(eslint())
@@ -21,8 +24,8 @@ gulp.task('jslint', function() {
 
 // Execute csslint.
 gulp.task('csslint', function() {
-  var modules = gulp.src('docroot/sites/all/modules/custom/**/*.css');
-  var themes = gulp.src('docroot/sites/all/themes/**/*.css');
+  var modules = gulp.src(drupal_root + '/sites/all/modules/custom/**/*.css');
+  var themes = gulp.src(drupal_root + '/sites/all/themes/**/*.css');
 
   return es.merge(modules, themes)
     .pipe(csslint())
@@ -32,7 +35,7 @@ gulp.task('csslint', function() {
 
 // Execute scsslint.
 gulp.task('scsslint', function () {
-  return gulp.src('docroot/sites/all/themes/sass/**/*.s+(a|c)ss')
+  return gulp.src(drupal_root + '/sites/all/themes/sass/**/*.s+(a|c)ss')
    .pipe(sasslint())
    .pipe(sasslint.format())
    .pipe(sasslint.failOnError());
@@ -43,9 +46,9 @@ gulp.task('phpcs', function () {
   // Source file defaults to a pattern.
   var extensions = '{php,module,inc,install,test,profile,theme}',
     sourcePatterns = [
-      'docroot/sites/all/modules/custom/**/*.' + extensions,
-      'docroot/sites/all/modules/features/**/*.' + extensions,
-      'docroot/sites/all/themes/custom/**/*.' + extensions
+      drupal_root + '/sites/all/modules/custom/**/*.' + extensions,
+      drupal_root + '/sites/all/modules/features/**/*.' + extensions,
+      drupal_root + '/sites/all/themes/custom/**/*.' + extensions
     ],
     excludePatterns = [
       '!**/*.apachesolr_environments.inc',
