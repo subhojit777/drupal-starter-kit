@@ -4,11 +4,11 @@ var es = require('event-stream');
 var csslint = require('gulp-csslint');
 var sass = require('gulp-sass');
 var sasslint = require('gulp-sass-lint');
-var tap = require('gulp-tap');
-var execSync = require('sync-exec');
 var options = require('minimist')(process.argv.slice(2));
 var phpcs = require('gulp-phpcs');
+var guppy = require('git-guppy')(gulp);
 
+// Execute js lint.
 gulp.task('jslint', function() {
   var modules = gulp.src('docroot/sites/all/modules/custom/**/*.js');
   var themes = gulp.src('docroot/sites/all/themes/**/*.js');
@@ -19,6 +19,7 @@ gulp.task('jslint', function() {
     .pipe(eslint.failAfterError());
 });
 
+// Execute csslint.
 gulp.task('csslint', function() {
   var modules = gulp.src('docroot/sites/all/modules/custom/**/*.css');
   var themes = gulp.src('docroot/sites/all/themes/**/*.css');
@@ -29,14 +30,16 @@ gulp.task('csslint', function() {
     .pipe(csslint.reporter('fail'));
 });
 
+// Execute scsslint.
 gulp.task('scsslint', function () {
   return gulp.src('docroot/sites/all/themes/sass/**/*.s+(a|c)ss')
    .pipe(sasslint())
    .pipe(sasslint.format())
    .pipe(sasslint.failOnError());
- });
+});
 
-gulp.task('php', function () {
+// Execute php code sniffer.
+gulp.task('phpcs', function () {
   // Source file defaults to a pattern.
   var extensions = '{php,module,inc,install,test,profile,theme}',
     sourcePatterns = [
@@ -79,9 +82,18 @@ gulp.task('php', function () {
 
 });
 
+// Runs on git pre-commit.
+gulp.task('pre-commit', [
+  'jslint',
+  'csslint',
+  'scsslint',
+  'phpcs'
+]);
+
+// Default gulp task. Runs when gulp is executed standalone.
 gulp.task('default', [
   'jslint',
   'csslint',
   'scsslint',
-  'php'
+  'phpcs'
 ]);
