@@ -1,8 +1,6 @@
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
-var es = require('event-stream');
 var csslint = require('gulp-csslint');
-var sass = require('gulp-sass');
 var sasslint = require('gulp-sass-lint');
 var options = require('minimist')(process.argv.slice(2));
 var phpcs = require('gulp-phpcs');
@@ -19,13 +17,13 @@ if (tools.js && tools.js.enable) {
   if (!tools.js.include || !tools.js.include.length) {
     return;
   }
-  var files = [];
+  var jf = [];
   tools.js.include.forEach(function(file) {
-    files.push(drupal_root + file);
+    jf.push(drupal_root + file);
   });
   // Execute js lint.
   gulp.task('jslint', function() {
-    return es.merge(files)
+    return gulp.src(jf)
       .pipe(eslint())
       .pipe(eslint.format())
       .pipe(eslint.failAfterError());
@@ -39,13 +37,13 @@ if (tools.css && tools.css.enable) {
   if (!tools.css.include || !tools.css.include.length) {
     return;
   }
-  var files = [];
+  var cf = [];
   tools.css.include.forEach(function(file) {
-    files.push(drupal_root + file);
+    cf.push(drupal_root + file);
   });
   // Execute csslint.
   gulp.task('csslint', function() {
-    return es.merge(files)
+    return gulp.src(cf)
       .pipe(csslint())
       .pipe(csslint.reporter())
       .pipe(csslint.reporter('fail'));
@@ -59,13 +57,13 @@ if (tools.sass && tools.sass.enable) {
   if (!tools.sass.include || !tools.sass.include.length) {
     return;
   }
-  var files = [];
+  var sf = [];
   tools.sass.include.forEach(function(file) {
-    files.push(drupal_root + file);
+    sf.push(drupal_root + file);
   });
   // Execute scsslint.
   gulp.task('scsslint', function () {
-    return gulp.src(files)
+    return gulp.src(sf)
      .pipe(sasslint())
      .pipe(sasslint.format())
      .pipe(sasslint.failOnError());
