@@ -1,4 +1,4 @@
-
+// Test js file with error to make build fail
    jQuery('body').addClass( 'hi')
 
 console.log('sadf');
