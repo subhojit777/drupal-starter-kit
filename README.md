@@ -30,6 +30,7 @@ OS.
 Once all the dependencies are installed, follow the steps below
 
 * Clone the repo
+* `cp example.config.json config.json`
 * Execute ```npm install gulp```
 * Execute ```npm install```
 * Execute ```composer install```
