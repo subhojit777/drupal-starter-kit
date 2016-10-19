@@ -30,6 +30,7 @@ OS.
 Once all the dependencies are installed, follow the steps below
 
 * Clone the repo
+* `cp example.travis.yml .travis.yml`
 * Execute ```npm install gulp```
 * Execute ```npm install```
 * Execute ```composer install```
