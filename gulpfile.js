@@ -5,9 +5,9 @@ var sasslint = require('gulp-sass-lint');
 var options = require('minimist')(process.argv.slice(2));
 var phpcs = require('gulp-phpcs');
 var guppy = require('git-guppy')(gulp);
-var fs = require('fs');
+var YAML = require('yamljs');
 // Get the configuration file
-var config = JSON.parse(fs.readFileSync('./config.json'));
+var config = YAML.load('./config.yml');
 var drupal_root = config.drupal_root;
 var tools = config.tools;
 var gulp_default_tasks = [];

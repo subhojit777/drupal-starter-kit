@@ -1,0 +1,53 @@
+---
+drupal_root: docroot
+tools:
+  # Config documentation
+  # --------------------
+  #
+  # linter_name:
+  # 	Set this to `false` if you don't want to use this linter.
+  #		enable: true
+  #
+  #		File extensions on which you want to run this linter.
+  #		exts: {php,module,css,js}
+  #
+  #		Linter will be executed on these paths.
+  #		include:
+  #		- "/sites/all/modules/custom/**/*"
+  #		- "/sites/all/modules/check_me_as_well/**/*"
+  #
+  #		Linter will not be executed on these paths.
+  #		exclude:
+  #		- "/sites/all/modules/touch_me_not/**/*"
+  #		- "!**/*.apachesolr_environments.inc"
+  phpcs:
+    enable: true
+    exts: "{php,module,inc,install,test,profile,theme}"
+    include:
+    - "/sites/all/modules/custom/**/*"
+    - "/sites/all/modules/features/**/*"
+    - "/sites/all/themes/custom/**/*"
+    exclude:
+    - "!**/*.apachesolr_environments.inc"
+    - "!**/*.apachesolr_search_defaults.inc"
+    - "!**/*.context.inc"
+    - "!**/*.features.*.inc"
+    - "!**/*.features.inc"
+    - "!**/*.field_group.inc"
+    - "!**/*.pages_default.inc"
+    - "!**/*.strongarm.inc"
+    - "!**/*.views_default.inc"
+  css:
+    enable: true
+    include:
+    - "/sites/all/modules/custom/**/*.css"
+    - "/sites/all/themes/**/*.css"
+  sass:
+    enable: true
+    include:
+    - "/sites/all/themes/sass/**/*.s+(a|c)ss"
+  js:
+    enable: true
+    include:
+    - "/sites/all/modules/custom/**/*.js"
+    - "/sites/all/themes/**/*.js"
