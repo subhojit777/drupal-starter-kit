@@ -5,5 +5,9 @@ sites/*/settings*.php
 sites/*/files
 sites/*/private
 
+# Dependency directories
 node_modules
 vendor
+
+# Project specific files
+config.json
