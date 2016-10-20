@@ -32,7 +32,7 @@ Once all the dependencies are installed, follow the steps below
 * Clone the repo
 * `cp example.travis.yml .travis.yml`
 * `cp example.config.json config.json`
-* Execute ```npm install gulp```
+* Execute ```npm install -g gulp```
 * Execute ```npm install```
 * Execute ```composer install```
 * Move your Drupal codebase to docroot directory
